@@ -1,0 +1,37 @@
+def count_substrings_with_limited_chars(n, binary_string, k):
+ if k == 0:
+ return 0
+
+ left = 0
+ count_0 = 0
+ count_1 = 0
+ result = 0
+ for right in range(n):
+ if binary_string[right] == '0':
+ count_0 += 1
+ else:
+ count_1 += 1
+
+ while count_0 > k or count_1 > k:
+ if binary_string[left] == '0':
+ count_0 -= 1
+ else:
+ count_1 -= 1
+ left += 1
+
+ result += (right - left + 1)
+
+ return result
+def main():
+ import sys
+ input = sys.stdin.read
+ data = input().splitlines()
+
+ n = int(data[0].strip())
+ binary_string = data[1].strip()
+ k = int(data[2].strip())
+
+ result = count_substrings_with_limited_chars(n, binary_string, k)
+ print(result)
+if __name__ == "__main__":
+ main()
